@@ -1,6 +1,7 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import projectImg from "./assets/notation.png";
+import Nav from "./Nav";
 // import styled from "styled-components";
 
 import { invoke } from "@tauri-apps/api/tauri";
@@ -18,16 +19,39 @@ function Project({name, lastModified}){
     </div>
   )
 }
+function getProjects(){
+  // call the tauri api to get the list of projects and print it to the console
+  // console.log("test print: ");
+  // console.log("test print: "+invoke('getProjectList'));
+  
+
+  invoke('getProjectList').then((message) => console.log(message))
+
+  // invoke('getProjectList');
+}
+
+let projects = [
+  {
+    name: "4 chords",
+    lastModified: "10/10/10"
+  },
+  {
+    name: "Giant Steps",
+    lastModified: "10/10/10"
+  }
+]
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  getProjects();
 
   // 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    // invoke is a wrapper around the Tauri command API
-    setGreetMsg(await invoke("grate", { name }));
-  }
+  // async function greet() {
+  //   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  //   // invoke is a wrapper around the Tauri command API
+  //   setGreetMsg(await invoke("grate", { name }));
+  // }
+//  console.log("test print: "+invoke('getProjectList'));
 
   return (
     // <div className="container">
@@ -66,11 +90,15 @@ function App() {
     //   <p>{greetMsg}</p>
     // </div>
     
+    
     <div className="container">
       <h1>Projects</h1>
       <div className="project-container">
-        <Project name="4 chords" lastModified="10/10/10"/>
-        <Project name="Giant Steps" lastModified="10/10/10"/>
+        {/* <Project name="4 chords" lastModified="10/10/10"/>
+        <Project name="Giant Steps" lastModified="10/10/10"/> */}
+        {projects.map((project, i) => {
+          return <Project name={project.name} lastModified={project.lastModified} key={i}/>
+        })}
       </div>
 
     </div>
