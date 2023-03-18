@@ -64,17 +64,31 @@ function App() {
       .catch((err) => console.log(err));
   }, []);  
   return (
-    <div className="project-container">
-      
-      {projects.map((p) => (
-        // <li></li>
-        <Project className="project" key={p.name} name={p.name} lastModified={p.lastModified}/> 
-      ))}
-    </div>
-  );
-
+  <div class="row-container">
     
   
-}
+      <div className="nav-container"> 
+        <h1 className="header">Projects</h1>
+          <ul className="options">
+            <li><a>New Project</a></li>
+            <li><a>Open Recent</a></li>
+            <li><a>Help</a></li>
+            <li><a>Exit</a></li>
+
+          </ul>
+      </div>
+        
+        
+      <div className="project-container">
+          {projects.map((p) => (
+          <Project className="project" key={p.name} name={p.name} lastModified={p.lastModified}/> 
+          ))}
+      </div>
+
+      
+  
+
+  </div>
+  );}
 
 export default App;

@@ -38,6 +38,7 @@ fn getProjectList()-> String{
         let project_name = project.file_name().into_string().unwrap().replace(".txt", "");
         let project_data=format!("{} {},",project_name , project_access_date);
         to_return.push_str(&project_data);    
+        
     }
    
     
