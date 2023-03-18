@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "new",
+    "productName": "Notation",
     "version": "0.0.0"
   },
   "tauri": {
@@ -33,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "FirstBuild",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -59,6 +59,15 @@
     },
     "windows": [
       {
+        "label": "startupMenu",
+        "fullscreen": false,
+        "height": 600,
+        "resizable": true,
+        "title": "Notation",
+        "width": 800
+      },
+      {
+        "label": "NewProject",
         "fullscreen": false,
         "height": 600,
         "resizable": true,

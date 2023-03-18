@@ -22,6 +22,15 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0px;
+  /* transition: all 0.2s ease-in-out; */
+  /* make nothing able to be highlighted */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+  /
   /* min-width: 400px */
 }
 body{
@@ -140,8 +149,17 @@ ul{
   filter: drop-shadow(0 0 1em #98b0b24a);
   transform: scale(1.01);
   cursor: pointer;
-
 }
+/* .project:active:nth */
+h2{
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 10px;
+  /* margin-top: 10px; */
+  /* margin: 0; */
+  /* padding: 0; */
+}
+
 
 .logo {
   height: 6em;

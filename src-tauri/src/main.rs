@@ -5,9 +5,9 @@
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
 )]
-// #![feature(string_remove_matches)]
-use std::{io, fs};
-use chrono::prelude::*;
+use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
+mod startup_menu;
+use crate::startup_menu::startup_menu::*;
 
 
 
@@ -15,51 +15,82 @@ use chrono::prelude::*;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 
-// #![feature(string_remove_matches)]
-// #[feature(string_remove_matches)]
-// this command is executed to populate the startup page with the projects in the progressions folder
-#[tauri::command]
-fn getProjectList()-> String{
-    // set destination to the path of the projects folder
-    let destination: String ="../projects".to_string();
+// [tauri::command]
+// //this function should render window with label "NewProject" when the new project button is clicked
+// pub fn new_project(event: tauri::Event){
+//     println!("new project");
+//     let new_project_window = tauri::WindowBuilder::new(
+//         &app,
+//         "NewProject", /* the unique window label */
+//         tauri::WindowUrl::External("https://tauri.app/".parse().unwrap())
+//       ).build().expect("failed to build window");
+      
 
-    let mut project_list:String =" ".to_string();
-
-    // read the directory and store into ReadDir struct
-    let mut projects= fs::read_dir(destination).unwrap();
-    let mut to_return:String = "".to_string();
-
-    // loop through the ReadDir struct and store the file names into a string
-    for project in projects {
-        let project = project.unwrap();
-        let project_access_time:u64= project.metadata().unwrap().created().unwrap()
-        .duration_since(std::time::SystemTime::UNIX_EPOCH).unwrap().as_secs();
-        let project_access_date= chrono::NaiveDateTime::from_timestamp_opt(project_access_time as i64, 0).unwrap().format("%Y-%m-%d").to_string();
-        let project_name = project.file_name().into_string().unwrap().replace(".txt", "");
-        let project_data=format!("{} {},",project_name , project_access_date);
-        to_return.push_str(&project_data);    
-        
-    }
-   
     
-
-
-   
-    // console log the project list
-    // println!("{}", project_list);
-
-    // #![feature(string_remove_matches)]
-
-    // println!("{}", to_return);
-    // to_return.into()
-    to_return.to_string().into()
-}
-
-
-
+// }
 fn main() {
-    tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![getProjectList])
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let new: CustomMenuItem = CustomMenuItem::new("new".to_string(), "New Project");
+    let open: CustomMenuItem = CustomMenuItem::new("open".to_string(), "Open Project");
+    let submenu = Submenu::new("File", Menu::new().add_item(new).add_item(open).add_item(quit));
+    let menu = Menu::new()
+    .add_native_item(MenuItem::Copy)
+    .add_item(CustomMenuItem::new("hide", "Hide"))
+    .add_submenu(submenu);
+    let app=tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![get_project_list])
+        .menu(menu)
+        .on_menu_event(|event| {
+            match event.menu_item_id() {
+              "quit" => {
+                std::process::exit(0);
+              }
+              "close" => {
+                event.window().close().unwrap();
+              }
+              _ => {}
+            }
+          })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+
 }
+
+// function that opens a new window when the new project button is clicked
+
+// fn main() {
+//     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+//     let new: CustomMenuItem = CustomMenuItem::new("new".to_string(), "New Project");
+//     let open: CustomMenuItem = CustomMenuItem::new("open".to_string(), "Open Project");
+//     let submenu = Submenu::new("File", Menu::new().add_item(new).add_item(open).add_item(quit));
+//     let menu = Menu::new()
+//     .add_native_item(MenuItem::Copy)
+//     .add_item(CustomMenuItem::new("hide", "Hide"))
+//     .add_submenu(submenu);
+
+//     let app=tauri::Builder::default()
+//         .invoke_handler(tauri::generate_handler![get_project_list])
+//         .menu(menu)
+//         .on_menu_event(|event| {
+//             match event.menu_item_id() {
+//               "quit" => {
+//                 std::process::exit(0);
+//               }
+//               "close" => {
+//                 event.window().close().unwrap();
+//               }
+//               _ => {}
+//             }
+//           })
+//         .build(tauri::generate_context!())
+//         .expect("error while running tauri application");
+
+//     let new_project_window = tauri::WindowBuilder::new(
+//         &app,
+//         "NewProject", /* the unique window label */
+//         tauri::WindowUrl::External("https://tauri.app/".parse().unwrap())
+//       ).build().expect("failed to build window");
+//     //   q:how to we get the new project window to open when the new project button is clicked?
+//     // 
+//     // 
+// }
