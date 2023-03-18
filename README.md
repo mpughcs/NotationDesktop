@@ -14,9 +14,9 @@ This project builds on a [command line app](https://github.com/mpughcs/Notation)
 - [x] Styled Startup Menu 
 - [x] Startup Menu calls rust and tauri API's to display all projects in the projects directory in the parent directory.
 - [ ] Startup Menu allows users to create new projects.
-- [] Startup Menu allows users to delete projects.
-- [] Startup Menu allows users to open projects.
+- [ ] Startup Menu allows users to delete projects.
+- [ ] Startup Menu allows users to open projects.
 ### Project Menu
-- [] Styled Project Menu
-- [] Project Menu allows users to view notes in a scale.
-- [] Dynamic adding of chords to chord progression.
+- [ ] Styled Project Menu
+- [ ] Project Menu allows users to view notes in a scale.
+- [ ] Dynamic adding of chords to chord progression.
