@@ -13,7 +13,7 @@ This project builds on a [command line app](https://github.com/mpughcs/Notation)
 ### Startup Menu
 - [x] Styled Startup Menu 
 - [x] Startup Menu calls rust and tauri API's to display all projects in the projects directory in the parent directory.
-- [] Startup Menu allows users to create new projects.
+- [ ] Startup Menu allows users to create new projects.
 - [] Startup Menu allows users to delete projects.
 - [] Startup Menu allows users to open projects.
 ### Project Menu
